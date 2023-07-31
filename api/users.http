@@ -1,0 +1,28 @@
+### List of users
+GET http://localhost:3000/api/users/
+
+### One user
+GET http://localhost:3000/api/users/32
+
+### List of users with one genre
+GET http://localhost:3000/api/users/genre/:genreId
+
+### List of users with one group
+GET http://localhost:3000/api/users/group/:groupId
+
+### Create a new user
+POST http://localhost:3000/api/users/
+
+{
+  "user": {
+    "name": "Miguel Ángel García Noguera"
+  }
+}
+
+### Update an user
+PUT http://localhost:3000/api/users/:userId
+
+{}
+
+### Delete an user
+DELETE http://localhost:3000/api/users/32
