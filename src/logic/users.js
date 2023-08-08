@@ -44,6 +44,17 @@ export const postUser = user => {
   }
 }
 
+export const putUser = user => {
+  // Llamada a la BD
+  return {
+    status: 200,
+    data: {
+      message: 'Put User',
+      user
+    }
+  }
+}
+
 export const deleteUser = userId => {
   // Llamada a la BD
   return {

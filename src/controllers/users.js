@@ -4,6 +4,7 @@ import {
   getUsersByGenre as getUsersByGenreLogic,
   getUsersByGroup as getUserByGroupLogic,
   postUser as postUserLogic,
+  putUser as putUserLogic,
   deleteUser as deleteUserLogic
 } from '../logic/index.js'
 
@@ -28,8 +29,12 @@ export const getUsersByGroup = (req, res) => {
 }
 
 export const postUser = (req, res) => {
-  console.log(req.body)
   const { status, data } = postUserLogic(req.body.user)
+  res.status(status).send(data)
+}
+
+export const putUser = (req, res) => {
+  const { status, data } = putUserLogic(req.body.user)
   res.status(status).send(data)
 }
 
