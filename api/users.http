@@ -12,6 +12,7 @@ GET http://localhost:3000/api/users/group/:groupId
 
 ### Create a new user
 POST http://localhost:3000/api/users/
+content-type: application/json
 
 {
   "user": {
@@ -21,8 +22,13 @@ POST http://localhost:3000/api/users/
 
 ### Update an user
 PUT http://localhost:3000/api/users/:userId
+content-type: application/json
 
-{}
+{
+  "user": {
+    "id": "0123456789"
+  }
+}
 
 ### Delete an user
 DELETE http://localhost:3000/api/users/32
