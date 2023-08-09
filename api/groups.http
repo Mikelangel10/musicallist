@@ -4,6 +4,9 @@ content-type: application/json
 
 {
   "group": {
-    "name": "Hombres G"
+    "name": "Alice Cooper",
+    "fundationDate": 1964,
+    "members": ["Vincent Damon Furnie"],
+    "genres": ["Rock"]
   }
 }
