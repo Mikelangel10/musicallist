@@ -1,3 +1,5 @@
+import User from '../models/user.js'
+
 export const getUsers = () => {
   // Llamada a la BD
   return {
@@ -5,7 +7,6 @@ export const getUsers = () => {
     data: 'Get Users'
   }
 }
-
 export const getUser = userId => {
   // Llamada a la BD
   return {
@@ -33,13 +34,35 @@ export const getUsersByGroup = () => {
   }
 }
 
-export const postUser = user => {
-  // Llamada a la BD
-  return {
-    status: 200,
-    data: {
-      message: 'Post User',
-      user
+export const postUser = async user => {
+  try {
+    const newUser = new User({
+      name: user.name,
+      email: user.email
+    })
+    await newUser.save()
+
+    const res = {
+      status: 201,
+      data: {
+        newUser
+      }
+    }
+    return res
+  } catch (error) {
+    if (error.code === 11000)
+      return {
+        status: 400,
+        data: {
+          message: 'User already exits'
+        }
+      }
+
+    return {
+      status: 500,
+      data: {
+        message: 'Internal server error'
+      }
     }
   }
 }

@@ -28,8 +28,8 @@ export const getUsersByGroup = (req, res) => {
   res.status(status).send(data)
 }
 
-export const postUser = (req, res) => {
-  const { status, data } = postUserLogic(req.body.user)
+export const postUser = async (req, res) => {
+  const { status, data } = await postUserLogic(req.body.user)
   res.status(status).send(data)
 }
 

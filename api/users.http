@@ -16,7 +16,8 @@ content-type: application/json
 
 {
   "user": {
-    "name": "Miguel Ángel García Noguera"
+    "name": "José Antonio García Noguera",
+    "email": "ja.garcianoguera@hotmail.com"
   }
 }
 
