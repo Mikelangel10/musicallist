@@ -1,12 +1,18 @@
+### Get group
+GET  http://localhost:3000/api/groups?group=Alice%20Cooper
+
+### Get groups
+GET  http://localhost:3000/api/groups
+
 ### Create a new group
-POST http://localhost:3000/api/groups/
+POST http://localhost:3000/api/groups
 content-type: application/json
 
 {
   "group": {
-    "name": "Alice Cooper",
-    "fundationDate": 1964,
-    "members": ["Vincent Damon Furnie"],
-    "genres": ["Rock"]
+    "name": "Estopa",
+    "fundationDate": 1999,
+    "members": ["David Muñoz Calvo", "Jose Manuel Muñoz Calvo"],
+    "genres": ["Pop"]
   }
 }
