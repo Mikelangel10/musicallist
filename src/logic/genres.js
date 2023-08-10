@@ -2,16 +2,19 @@ import Genre from '../models/genre.js'
 
 export const getGenres = async genre => {
   try {
+    let genres
+
     if (!genre) {
+      genres = []
+
       const res = await Genre.find()
-      const genres = []
 
       res.map(genre => {
         genres.push(genre.name)
       })
     }
 
-    const genres = await Genre.findOne({ name: genre }, '_id name')
+    if (genre) genres = await Genre.findOne({ name: genre }, '_id name')
 
     return {
       status: 200,
