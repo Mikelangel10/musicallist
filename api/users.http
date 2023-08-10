@@ -1,14 +1,14 @@
-### List of users
+### Get users
 GET http://localhost:3000/api/users/
 
-### One user
-GET http://localhost:3000/api/users/32
+### Get user
+GET http://localhost:3000/api/users/
 
-### List of users with one genre
-GET http://localhost:3000/api/users/genre/:genreId
+### Get users with one genre
+GET http://localhost:3000/api/users/genre/22
 
-### List of users with one group
-GET http://localhost:3000/api/users/group/:groupId
+### Get users with one group
+GET http://localhost:3000/api/users/group/22
 
 ### Create a new user
 POST http://localhost:3000/api/users/

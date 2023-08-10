@@ -8,13 +8,13 @@ import {
   deleteUser as deleteUserLogic
 } from '../logic/index.js'
 
-export const getUsers = (req, res) => {
-  const { status, data } = getUsersLogic()
+export const getUsers = async (req, res) => {
+  const { status, data } = await getUsersLogic()
   res.status(status).send(data)
 }
 
-export const getUser = (req, res) => {
-  const { status, data } = getUserByLogic(req.params.userId)
+export const getUser = async (req, res) => {
+  const { status, data } = await getUserByLogic(req.params.userId)
   res.status(status).send(data)
 }
 

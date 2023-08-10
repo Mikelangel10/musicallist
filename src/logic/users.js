@@ -1,19 +1,56 @@
 import User from '../models/user.js'
 
-export const getUsers = () => {
-  // Llamada a la BD
-  return {
-    status: 200,
-    data: 'Get Users'
+export const getUsers = async () => {
+  try {
+    const users = await User.find()
+
+    return {
+      status: 200,
+      data: {
+        users
+      }
+    }
+  } catch (error) {
+    if (error.code === 11000)
+      return {
+        status: 400,
+        data: {
+          message: 'User already exits'
+        }
+      }
+
+    return {
+      status: 500,
+      data: {
+        message: 'Internal server error'
+      }
+    }
   }
 }
-export const getUser = userId => {
-  // Llamada a la BD
-  return {
-    status: 200,
-    data: {
-      message: 'Get User',
-      userId: +userId
+
+export const getUser = async userId => {
+  try {
+    const user = await User.findById(userId)
+
+    return {
+      status: 200,
+      data: {
+        user
+      }
+    }
+  } catch (error) {
+    if (error.code === 11000)
+      return {
+        status: 400,
+        data: {
+          message: 'User already exits'
+        }
+      }
+    return {
+      status: 500,
+      data: {
+        message: 'Internal server error'
+      }
     }
   }
 }
