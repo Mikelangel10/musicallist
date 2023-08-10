@@ -1,5 +1,8 @@
-### Get genres
+### Get genre
 GET  http://localhost:3000/api/genres?genre=Pop
+
+### Get genres
+GET  http://localhost:3000/api/genres
 
 ### Create a new genre
 POST http://localhost:3000/api/genres/
