@@ -1,6 +1,45 @@
 import Group from '../models/group.js'
 import Genre from '../models/genre.js'
 
+export const getGroups = async group => {
+  try {
+    let groups
+
+    if (!group) {
+      groups = []
+
+      const res = await Group.find()
+
+      res.map(group => {
+        groups.push(group.name)
+      })
+    }
+
+    if (group) groups = await Group.findOne({ name: group }, '_id name')
+
+    return {
+      status: 200,
+      data: {
+        groups
+      }
+    }
+  } catch (error) {
+    if (error.code === 11000)
+      return {
+        status: 400,
+        data: {
+          message: 'Group already exits'
+        }
+      }
+
+    return {
+      status: 500,
+      data: {
+        message: 'Internal server error'
+      }
+    }
+  }
+}
 export const postGroup = async group => {
   try {
     let genres = []
