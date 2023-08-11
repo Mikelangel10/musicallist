@@ -5,10 +5,10 @@ GET http://localhost:3000/api/users/
 GET http://localhost:3000/api/users/
 
 ### Get users with one genre
-GET http://localhost:3000/api/users/genre/22
+GET http://localhost:3000/api/users/genre/Rock
 
 ### Get users with one group
-GET http://localhost:3000/api/users/group/22
+GET http://localhost:3000/api/users/group/Estopa
 
 ### Create a new user
 POST http://localhost:3000/api/users/
@@ -16,8 +16,8 @@ content-type: application/json
 
 {
   "user": {
-    "name": "José Antonio García Noguera",
-    "email": "ja.garcianoguera@hotmail.com"
+    "name": "Erika Perez",
+    "email": "erika@gmail.com"
   }
 }
 

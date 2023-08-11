@@ -18,13 +18,13 @@ export const getUser = async (req, res) => {
   res.status(status).send(data)
 }
 
-export const getUsersByGenre = (req, res) => {
-  const { status, data } = getUsersByGenreLogic()
+export const getUsersByGenre = async (req, res) => {
+  const { status, data } = await getUsersByGenreLogic(req.params.genreName)
   res.status(status).send(data)
 }
 
-export const getUsersByGroup = (req, res) => {
-  const { status, data } = getUserByGroupLogic()
+export const getUsersByGroup = async (req, res) => {
+  const { status, data } = await getUserByGroupLogic(req.params.groupName)
   res.status(status).send(data)
 }
 
