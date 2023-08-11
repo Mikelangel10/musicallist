@@ -59,14 +59,18 @@ export const getUser = async userId => {
 
 export const getUsersByGenre = async genreName => {
   try {
-    const users = await User.find({
-      genre: { $elemMatch: { name: genreName } }
+    const genre = await Genre.findOne({ name: genreName })
+
+    const usersWithCommonGenre = await User.find({
+      genres: genre._id
     })
+      .populate('genres')
+      .populate('groups')
 
     return {
       status: 200,
       data: {
-        users
+        usersWithCommonGenre
       }
     }
   } catch (error) {
@@ -89,14 +93,18 @@ export const getUsersByGenre = async genreName => {
 
 export const getUsersByGroup = async groupName => {
   try {
-    const users = await User.find({
-      group: { $elemMatch: { name: groupName } }
+    const group = await Group.findOne({ name: groupName })
+
+    const usersWithCommonGroup = await User.find({
+      groups: group._id
     })
+      .populate('genres')
+      .populate('groups')
 
     return {
       status: 200,
       data: {
-        users
+        usersWithCommonGroup
       }
     }
   } catch (error) {
@@ -104,9 +112,10 @@ export const getUsersByGroup = async groupName => {
       return {
         status: 400,
         data: {
-          message: 'Genre already exits'
+          message: 'Group already exits'
         }
       }
+
     return {
       status: 500,
       data: {
