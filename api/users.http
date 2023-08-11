@@ -5,7 +5,7 @@ GET http://localhost:3000/api/users/
 GET http://localhost:3000/api/users/
 
 ### Get users with one genre
-GET http://localhost:3000/api/users/genre/Rock
+GET http://localhost:3000/api/users/genre/Pop
 
 ### Get users with one group
 GET http://localhost:3000/api/users/group/Estopa
@@ -30,6 +30,12 @@ content-type: application/json
     "id": "0123456789"
   }
 }
+
+### Add genre to user
+PUT http://localhost:3000/api/users/64d343a2c437a682aee812f5/genre/Rock
+
+### Add group to user
+PUT http://localhost:3000/api/users/64d343a2c437a682aee812f5/group/Alice%20Cooper
 
 ### Delete an user
 DELETE http://localhost:3000/api/users/32

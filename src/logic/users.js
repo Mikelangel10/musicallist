@@ -77,6 +77,7 @@ export const getUsersByGenre = async genreName => {
           message: 'Genre already exits'
         }
       }
+
     return {
       status: 500,
       data: {
@@ -155,6 +156,74 @@ export const putUser = user => {
     data: {
       message: 'Put User',
       user
+    }
+  }
+}
+
+export const putUserGenre = async (userId, genreName) => {
+  try {
+    const genre = await Genre.findOne({ name: genreName })
+
+    const genreToUser = await User.updateOne(
+      { _id: userId },
+      { $push: { genres: genre } },
+      { new: true }
+    )
+
+    return {
+      status: 200,
+      data: {
+        message: 'Genre added to user'
+      }
+    }
+  } catch (error) {
+    if (error.code === 11000)
+      return {
+        status: 400,
+        data: {
+          message: 'User already exits'
+        }
+      }
+
+    return {
+      status: 500,
+      data: {
+        message: 'Internal server error'
+      }
+    }
+  }
+}
+
+export const putUserGroup = async (userId, groupName) => {
+  try {
+    const group = await Group.findOne({ name: groupName })
+
+    const groupToUser = await User.updateOne(
+      { _id: userId },
+      { $push: { groups: group } },
+      { new: true }
+    )
+
+    return {
+      status: 200,
+      data: {
+        message: 'Group added to user'
+      }
+    }
+  } catch (error) {
+    if (error.code === 11000)
+      return {
+        status: 400,
+        data: {
+          message: 'User already exits'
+        }
+      }
+
+    return {
+      status: 500,
+      data: {
+        message: 'Internal server error'
+      }
     }
   }
 }

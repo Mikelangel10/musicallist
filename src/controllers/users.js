@@ -5,6 +5,8 @@ import {
   getUsersByGroup as getUserByGroupLogic,
   postUser as postUserLogic,
   putUser as putUserLogic,
+  putUserGenre as putUserGenreLogic,
+  putUserGroup as putUserGroupLogic,
   deleteUser as deleteUserLogic
 } from '../logic/index.js'
 
@@ -35,6 +37,18 @@ export const postUser = async (req, res) => {
 
 export const putUser = (req, res) => {
   const { status, data } = putUserLogic(req.body.user)
+  res.status(status).send(data)
+}
+
+export const putUserGenre = async (req, res) => {
+  const { userId, genreName } = req.params
+  const { status, data } = await putUserGenreLogic(userId, genreName)
+  res.status(status).send(data)
+}
+
+export const putUserGroup = async (req, res) => {
+  const { userId, groupName } = req.params
+  const { status, data } = await putUserGroupLogic(userId, groupName)
   res.status(status).send(data)
 }
 

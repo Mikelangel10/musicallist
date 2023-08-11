@@ -6,6 +6,8 @@ import {
   getUsersByGroup,
   postUser,
   putUser,
+  putUserGenre,
+  putUserGroup,
   deleteUser
 } from '../controllers/index.js'
 
@@ -17,6 +19,8 @@ router.get('/genre/:genreName', getUsersByGenre)
 router.get('/group/:groupName', getUsersByGroup)
 router.post('/', postUser)
 router.put('/:userId', putUser)
+router.put('/:userId/genre/:genreName', putUserGenre)
+router.put('/:userId/group/:groupName', putUserGroup)
 router.delete('/:userId', deleteUser)
 
 export default router
