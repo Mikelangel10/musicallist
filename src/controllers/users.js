@@ -52,7 +52,7 @@ export const putUserGroup = async (req, res) => {
   res.status(status).send(data)
 }
 
-export const deleteUser = (req, res) => {
-  const { status, data } = deleteUserLogic(req.params.userId)
+export const deleteUser = async (req, res) => {
+  const { status, data } = await deleteUserLogic(req.params.userId)
   res.status(status).send(data)
 }

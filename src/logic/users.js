@@ -237,13 +237,23 @@ export const putUserGroup = async (userId, groupName) => {
   }
 }
 
-export const deleteUser = userId => {
-  // Llamada a la BD
-  return {
-    status: 200,
-    data: {
-      message: 'Delete User',
-      userId: +userId
+export const deleteUser = async userId => {
+  try {
+    console.log(userId)
+    await User.findByIdAndDelete(userId)
+
+    return {
+      status: 200,
+      data: {
+        message: 'User deleted successfully'
+      }
+    }
+  } catch (error) {
+    return {
+      status: 500,
+      data: {
+        message: 'Internal server error'
+      }
     }
   }
 }

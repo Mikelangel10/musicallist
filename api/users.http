@@ -38,4 +38,4 @@ PUT http://localhost:3000/api/users/64d343a2c437a682aee812f5/genre/Rock
 PUT http://localhost:3000/api/users/64d343a2c437a682aee812f5/group/Alice%20Cooper
 
 ### Delete an user
-DELETE http://localhost:3000/api/users/32
+DELETE http://localhost:3000/api/users/64d34612c437a682aee812fb
