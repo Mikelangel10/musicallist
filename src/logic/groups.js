@@ -86,14 +86,23 @@ export const postGroup = async group => {
 }
 
 export const deleteGroup = async groupId => {
-  await Group.findByIdAndRemove(groupId)
+  try {
+    await Group.findByIdAndRemove(groupId)
 
-  await User.updateMany({ groups: groupId }, { $pull: { groups: groupId } })
+    await User.updateMany({ groups: groupId }, { $pull: { groups: groupId } })
 
-  return {
-    status: 200,
-    data: {
-      message: 'Group deleted successfully'
+    return {
+      status: 200,
+      data: {
+        message: 'Group deleted successfully'
+      }
+    }
+  } catch (error) {
+    return {
+      status: 500,
+      data: {
+        message: 'Internal server error'
+      }
     }
   }
 }

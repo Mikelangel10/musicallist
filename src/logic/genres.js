@@ -74,14 +74,23 @@ export const postGenres = async genre => {
 }
 
 export const deleteGenre = async genreId => {
-  await Genre.findByIdAndRemove(genreId)
+  try {
+    await Genre.findByIdAndRemove(genreId)
 
-  await User.updateMany({ genres: genreId }, { $pull: { genres: genreId } })
-  await Group.updateMany({ genres: genreId }, { $pull: { genres: genreId } })
-  return {
-    status: 200,
-    data: {
-      message: 'Genre deleted successfully'
+    await User.updateMany({ genres: genreId }, { $pull: { genres: genreId } })
+    await Group.updateMany({ genres: genreId }, { $pull: { genres: genreId } })
+    return {
+      status: 200,
+      data: {
+        message: 'Genre deleted successfully'
+      }
+    }
+  } catch (error) {
+    return {
+      status: 500,
+      data: {
+        message: 'Internal server error'
+      }
     }
   }
 }
