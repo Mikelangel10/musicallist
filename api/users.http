@@ -32,10 +32,10 @@ content-type: application/json
 }
 
 ### Add genre to user
-PUT http://localhost:3000/api/users/64d343a2c437a682aee812f5/genre/Rock
+PUT http://localhost:3000/api/users/64d50bf71020c2401ec7d34c/genre/Rock
 
 ### Add group to user
-PUT http://localhost:3000/api/users/64d343a2c437a682aee812f5/group/Alice%20Cooper
+PUT http://localhost:3000/api/users/64dc7ae9bd2704ac7e548a6e/group/Hombres%20G
 
 ### Delete an user
-DELETE http://localhost:3000/api/users/64d34612c437a682aee812fb
+DELETE http://localhost:3000/api/users/64d227af41b5e72b44c36e23
