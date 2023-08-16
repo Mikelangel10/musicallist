@@ -13,3 +13,6 @@ content-type: application/json
     "name": "Rock"
   }
 }
+
+### Delete a Genre
+DELETE http://localhost:3000/api/genres/64dc8ab23ced77e3086743a8

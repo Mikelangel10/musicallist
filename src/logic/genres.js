@@ -1,4 +1,6 @@
 import Genre from '../models/genre.js'
+import Group from '../models/group.js'
+import User from '../models/user.js'
 
 export const getGenres = async genre => {
   try {
@@ -67,6 +69,19 @@ export const postGenres = async genre => {
       data: {
         message: 'Internal server error'
       }
+    }
+  }
+}
+
+export const deleteGenre = async genreId => {
+  await Genre.findByIdAndRemove(genreId)
+
+  await User.updateMany({ genres: genreId }, { $pull: { genres: genreId } })
+  await Group.updateMany({ genres: genreId }, { $pull: { genres: genreId } })
+  return {
+    status: 200,
+    data: {
+      message: 'Genre deleted successfully'
     }
   }
 }
