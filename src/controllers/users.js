@@ -35,8 +35,11 @@ export const postUser = async (req, res) => {
   res.status(status).send(data)
 }
 
-export const putUser = (req, res) => {
-  const { status, data } = putUserLogic(req.body.user)
+export const putUser = async (req, res) => {
+  const { status, data } = await putUserLogic(
+    req.params.userId,
+    req.body.payload
+  )
   res.status(status).send(data)
 }
 

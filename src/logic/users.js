@@ -158,13 +158,30 @@ export const postUser = async user => {
   }
 }
 
-export const putUser = user => {
-  // Llamada a la BD
-  return {
-    status: 200,
-    data: {
-      message: 'Put User',
-      user
+export const putUser = async (userId, payload) => {
+  try {
+    await User.findByIdAndUpdate(userId, payload)
+
+    return {
+      status: 200,
+      data: {
+        message: 'User updated correct'
+      }
+    }
+  } catch (error) {
+    if (error.code === 11000)
+      return {
+        status: 400,
+        data: {
+          message: 'User information already exits'
+        }
+      }
+
+    return {
+      status: 500,
+      data: {
+        message: 'Internal server error'
+      }
     }
   }
 }

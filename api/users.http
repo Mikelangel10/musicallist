@@ -22,17 +22,17 @@ content-type: application/json
 }
 
 ### Update an user
-PUT http://localhost:3000/api/users/:userId
+PUT http://localhost:3000/api/users/64d343a2c437a682aee812f5
 content-type: application/json
 
 {
-  "user": {
-    "id": "0123456789"
+  "payload": {
+    "name": "Miguel Ángel"
   }
 }
 
 ### Add genre to user
-PUT http://localhost:3000/api/users/64d50bf71020c2401ec7d34c/genre/Rock
+PUT http://localhost:3000/api/users/64d343a2c437a682aee812f5/genre/Pop
 
 ### Add group to user
 PUT http://localhost:3000/api/users/64dc7ae9bd2704ac7e548a6e/group/Hombres%20G
