@@ -1,5 +1,6 @@
 import Group from '../models/group.js'
 import Genre from '../models/genre.js'
+import User from '../models/user.js'
 
 export const getGroups = async group => {
   try {
@@ -80,6 +81,19 @@ export const postGroup = async group => {
       data: {
         message: 'Internal server error'
       }
+    }
+  }
+}
+
+export const deleteGroup = async groupId => {
+  await Group.findByIdAndRemove(groupId)
+
+  await User.updateMany({ groups: groupId }, { $pull: { groups: groupId } })
+
+  return {
+    status: 200,
+    data: {
+      message: 'Group deleted successfully'
     }
   }
 }

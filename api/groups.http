@@ -10,9 +10,12 @@ content-type: application/json
 
 {
   "group": {
-    "name": "Estopa",
-    "fundationDate": 1999,
-    "members": ["David Muñoz Calvo", "Jose Manuel Muñoz Calvo"],
-    "genres": ["Pop"]
+    "name": "Hombres G",
+    "fundationDate": 1982,
+    "members": ["David Summers", "Rafa Gutierrez", "Javier Molina", "Daniel Mezquita"],
+    "genres": ["Rock"]
   }
 }
+
+### Delete a group
+DELETE http://localhost:3000/api/groups/64dc7ae9bd2704ac7e548a6e
