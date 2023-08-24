@@ -16,26 +16,26 @@ content-type: application/json
 
 {
   "user": {
-    "name": "Erika Perez",
-    "email": "erika@gmail.com"
+    "name": "Usuario",
+    "email": "usuario@gmail.com"
   }
 }
 
 ### Update an user
-PUT http://localhost:3000/api/users/64d343a2c437a682aee812f5
+PUT http://localhost:3000/api/users/64e703efc1c2c96198836ab8
 content-type: application/json
 
 {
   "payload": {
-    "name": "Miguel Ángel"
+    "name": "Usuario"
   }
 }
 
 ### Add genre to user
-PUT http://localhost:3000/api/users/64d343a2c437a682aee812f5/genre/Pop
+PUT http://localhost:3000/api/users/64e703efc1c2c96198836ab8/genre/Pop
 
 ### Add group to user
-PUT http://localhost:3000/api/users/64dc7ae9bd2704ac7e548a6e/group/Hombres%20G
+PUT http://localhost:3000/api/users/64e703efc1c2c96198836ab8/group/Alice%20Cooper
 
 ### Delete an user
 DELETE http://localhost:3000/api/users/64d227af41b5e72b44c36e23
