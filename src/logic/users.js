@@ -189,12 +189,27 @@ export const putUser = async (userId, payload) => {
 export const putUserGenre = async (userId, genreName) => {
   try {
     const genre = await Genre.findOne({ name: genreName })
+    if (!genre)
+      return {
+        status: 404,
+        data: {
+          message: 'Genre not found'
+        }
+      }
 
-    const genreToUser = await User.updateOne(
+    const user = await User.findByIdAndUpdate(
       { _id: userId },
       { $push: { genres: genre } },
       { new: true }
     )
+
+    if (!user)
+      return {
+        status: 404,
+        data: {
+          message: 'User not found'
+        }
+      }
 
     return {
       status: 200,
@@ -223,12 +238,26 @@ export const putUserGenre = async (userId, genreName) => {
 export const putUserGroup = async (userId, groupName) => {
   try {
     const group = await Group.findOne({ name: groupName })
+    if (!group)
+      return {
+        status: 404,
+        data: {
+          message: 'Group not found'
+        }
+      }
 
-    const groupToUser = await User.updateOne(
+    const user = await User.findByIdAndUpdate(
       { _id: userId },
       { $push: { groups: group } },
       { new: true }
     )
+    if (!user)
+      return {
+        status: 404,
+        data: {
+          message: 'User not found'
+        }
+      }
 
     return {
       status: 200,
