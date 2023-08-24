@@ -9,6 +9,8 @@ import {
   putUserGroup as putUserGroupLogic,
   deleteUser as deleteUserLogic
 } from '../logic/index.js'
+import Genre from '../models/genre.js'
+import { validatePartialUser, validateUser } from '../schemas/user.js'
 
 export const getUsers = async (req, res) => {
   const { status, data } = await getUsersLogic()
@@ -31,11 +33,19 @@ export const getUsersByGroup = async (req, res) => {
 }
 
 export const postUser = async (req, res) => {
+  const result = validateUser(req.body.user)
+  if (!result.success)
+    return res.status(400).json({ error: JSON.parse(result.error.message) })
+
   const { status, data } = await postUserLogic(req.body.user)
   res.status(status).send(data)
 }
 
 export const putUser = async (req, res) => {
+  const result = validatePartialUser(req.body.payload)
+  if (!result.success)
+    return res.status(400).json({ error: JSON.parse(result.error.message) })
+
   const { status, data } = await putUserLogic(
     req.params.userId,
     req.body.payload
@@ -45,12 +55,14 @@ export const putUser = async (req, res) => {
 
 export const putUserGenre = async (req, res) => {
   const { userId, genreName } = req.params
+
   const { status, data } = await putUserGenreLogic(userId, genreName)
   res.status(status).send(data)
 }
 
 export const putUserGroup = async (req, res) => {
   const { userId, groupName } = req.params
+
   const { status, data } = await putUserGroupLogic(userId, groupName)
   res.status(status).send(data)
 }

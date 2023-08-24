@@ -3,6 +3,7 @@ import {
   postGenres as postGenreLogic,
   deleteGenre as deleteGenreLogic
 } from '../logic/genres.js'
+import { validateGenre } from '../schemas/genres.js'
 
 export const getGenres = async (req, res) => {
   const { genre } = req.query
@@ -10,7 +11,11 @@ export const getGenres = async (req, res) => {
   res.status(status).send(data)
 }
 
-export const postGenres = async (req, res) => {
+export const postGenre = async (req, res) => {
+  const result = validateGenre(req.body.genre)
+  if (!result.success)
+    return res.status(400).json({ error: JSON.parse(result.error.message) })
+
   const { status, data } = await postGenreLogic(req.body.genre)
   res.status(status).send(data)
 }

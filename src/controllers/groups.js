@@ -11,6 +11,10 @@ export const getGroups = async (req, res) => {
 }
 
 export const postGroup = async (req, res) => {
+  const result = validateGroup(req.boy.group)
+  if (!result.sucess)
+    return res.status(400).json({ error: JSON.parse(result.error.message) })
+
   const { status, data } = await postGroupLogic(req.body.group)
   res.status(status).send(data)
 }
