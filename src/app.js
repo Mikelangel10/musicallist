@@ -15,6 +15,7 @@ app.set('port', process.env.PORT)
 
 app.use('/api', routes)
 
-app.use((req, res) => res.status(404).send({ message: 'Page not found' }))
+// No es una ruta, puesto que no tiene endpoint y simplemente son datos inservibles ocupando espacio en memoria.
+// app.use((req, res) => res.status(404).send({ message: 'Page not found' }))
 
 export default app
