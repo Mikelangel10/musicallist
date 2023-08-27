@@ -9,7 +9,8 @@ import {
   putUserGroup as putUserGroupLogic,
   deleteUser as deleteUserLogic
 } from '../logic/index.js'
-import Genre from '../models/genre.js'
+// Importación en desuso
+// import Genre from '../models/genre.js'
 import { validatePartialUser, validateUser } from '../schemas/user.js'
 
 export const getUsers = async (req, res) => {

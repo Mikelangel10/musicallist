@@ -1,4 +1,5 @@
 import { Router } from 'express'
+// Importación corregida de index.js a users.js
 import {
   getUsers,
   getUser,
@@ -9,7 +10,7 @@ import {
   putUserGenre,
   putUserGroup,
   deleteUser
-} from '../controllers/index.js'
+} from '../controllers/users.js'
 
 const router = Router()
 
