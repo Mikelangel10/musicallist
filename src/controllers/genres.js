@@ -6,17 +6,20 @@ import {
 import { validateGenre } from '../schemas/genres.js'
 
 export const getGenres = async (req, res) => {
-  const { genre } = req.query
-  const { status, data } = await getGenresLogic(genre)
+  // Constante innecesaria porque sólo se usa una vez
+  // const { genre } = req.query
+  const { status, data } = await getGenresLogic(req.query.genre)
   res.status(status).send(data)
 }
 
 export const postGenre = async (req, res) => {
-  const result = validateGenre(req.body.genre)
+  // Constante necesaria porque se usa más de una vez
+  const { genre } = req.body
+  const result = validateGenre(genre)
   if (!result.success)
     return res.status(400).json({ error: JSON.parse(result.error.message) })
 
-  const { status, data } = await postGenreLogic(req.body.genre)
+  const { status, data } = await postGenreLogic(genre)
   res.status(status).send(data)
 }
 
