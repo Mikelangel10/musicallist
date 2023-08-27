@@ -1,5 +1,6 @@
 import { isValidObjectId } from 'mongoose'
 import { z } from 'zod'
+import { validateData } from '../middlewares/validations.js'
 
 export const groupSchema = z.object({
   name: z
@@ -20,7 +21,7 @@ export const groupSchema = z.object({
   )
 })
 
-export const validateGroup = object => groupSchema.safeParse(object)
+export const validateGroup = object => validateData(groupSchema, object)
 
 export const validatePartialGroup = object =>
-  groupSchema.partial().safeParse(object)
+  validatePartialData(groupSchema, object)
