@@ -1,4 +1,5 @@
-import { isValidObjectId } from 'mongoose'
+// Importación en desuso
+// import { isValidObjectId } from 'mongoose'
 import { z } from 'zod'
 
 export const userSchema = z.object({
