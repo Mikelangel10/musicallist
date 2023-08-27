@@ -8,7 +8,7 @@ import {
   putUserGenre as putUserGenreLogic,
   putUserGroup as putUserGroupLogic,
   deleteUser as deleteUserLogic
-} from '../logic/index.js'
+} from '../logic/users.js'
 // Importación en desuso
 // import Genre from '../models/genre.js'
 import { validatePartialUser, validateUser } from '../schemas/user.js'
