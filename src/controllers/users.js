@@ -34,23 +34,24 @@ export const getUsersByGroup = async (req, res) => {
 }
 
 export const postUser = async (req, res) => {
-  const result = validateUser(req.body.user)
+  // Constante necesaria porque se usa más de una vez
+  const { user } = req.body
+  const result = validateUser(user)
   if (!result.success)
     return res.status(400).json({ error: JSON.parse(result.error.message) })
 
-  const { status, data } = await postUserLogic(req.body.user)
+  const { status, data } = await postUserLogic(user)
   res.status(status).send(data)
 }
 
 export const putUser = async (req, res) => {
-  const result = validatePartialUser(req.body.payload)
+  // Constante necesaria porque se usa más de una vez y payload renombrado a user porque es más descriptivo
+  const { payload: user } = req.body
+  const result = validatePartialUser(user)
   if (!result.success)
     return res.status(400).json({ error: JSON.parse(result.error.message) })
 
-  const { status, data } = await putUserLogic(
-    req.params.userId,
-    req.body.payload
-  )
+  const { status, data } = await putUserLogic(req.params.userId, user)
   res.status(status).send(data)
 }
 
