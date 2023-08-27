@@ -1,7 +1,8 @@
 import express from 'express'
 import dotenv from 'dotenv'
 dotenv.config()
-import connect from './db.js'
+// Importación de la conexión a la base de datos en desuso
+// import connect from './db.js'
 import routes from './routes/index.js'
 
 const app = express()
@@ -9,7 +10,8 @@ app.disable('x-powered-by')
 
 app.use(express.json())
 
-connect(process.env.URI ?? '')
+// La conexión a la base de datos se traslada al index.js
+// connect(process.env.URI ?? '')
 
 app.set('port', process.env.PORT)
 
