@@ -1,5 +1,4 @@
 import { Router } from 'express'
-// Importación corregida de index.js a users.js
 import {
   getUsers,
   getUser,

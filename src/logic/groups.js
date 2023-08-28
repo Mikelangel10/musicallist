@@ -25,15 +25,6 @@ export const getGroups = async group => {
       }
     }
   } catch (error) {
-    // El error code 11000 es el que se lanza cuando se intenta crear un documento con un valor que ya existe en la base de datos por lo que no es necesario comprobarlo en peticiones de lectura
-    // if (error.code === 11000)
-    //   return {
-    //     status: 400,
-    //     data: {
-    //       message: 'Group already exits'
-    //     }
-    //   }
-
     return {
       status: 500,
       data: {

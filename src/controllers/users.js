@@ -9,8 +9,6 @@ import {
   putUserGroup as putUserGroupLogic,
   deleteUser as deleteUserLogic
 } from '../logic/users.js'
-// Importación en desuso
-// import Genre from '../models/genre.js'
 import { validatePartialUser, validateUser } from '../schemas/user.js'
 
 export const getUsers = async (req, res) => {
@@ -34,7 +32,6 @@ export const getUsersByGroup = async (req, res) => {
 }
 
 export const postUser = async (req, res) => {
-  // Constante necesaria porque se usa más de una vez
   const { user } = req.body
   const result = validateUser(user)
   if (!result.success)
@@ -45,7 +42,6 @@ export const postUser = async (req, res) => {
 }
 
 export const putUser = async (req, res) => {
-  // Constante necesaria porque se usa más de una vez y payload renombrado a user porque es más descriptivo
   const { payload: user } = req.body
   const result = validatePartialUser(user)
   if (!result.success)
