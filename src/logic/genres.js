@@ -1,6 +1,8 @@
 import Genre from '../models/genre.js'
 import Group from '../models/group.js'
 import User from '../models/user.js'
+import { duplicity } from '../utils/mongoErrors.js'
+import { serverError } from '../utils/statusErrors.js'
 
 export const getGenres = async genre => {
   try {
@@ -25,12 +27,7 @@ export const getGenres = async genre => {
       }
     }
   } catch (error) {
-    return {
-      status: 500,
-      data: {
-        message: 'Internal server error'
-      }
-    }
+    return serverError()
   }
 }
 
@@ -48,20 +45,9 @@ export const postGenres = async genre => {
 
     return res
   } catch (error) {
-    if (error.code === 11000)
-      return {
-        status: 400,
-        data: {
-          message: 'Genre already exits'
-        }
-      }
+    if (error.code) return duplicity(error.code)
 
-    return {
-      status: 500,
-      data: {
-        message: 'Internal server error'
-      }
-    }
+    return serverError()
   }
 }
 
@@ -78,11 +64,6 @@ export const deleteGenre = async genreId => {
       }
     }
   } catch (error) {
-    return {
-      status: 500,
-      data: {
-        message: 'Internal server error'
-      }
-    }
+    return serverError()
   }
 }

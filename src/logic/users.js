@@ -1,6 +1,8 @@
 import User from '../models/user.js'
 import Genre from '../models/genre.js'
 import Group from '../models/group.js'
+import { duplicity } from '../utils/mongoErrors.js'
+import { serverError } from '../utils/statusErrors.js'
 
 export const getUsers = async () => {
   try {
@@ -42,21 +44,7 @@ export const getUser = async userId => {
       }
     }
   } catch (error) {
-    // El error code 11000 es el que se lanza cuando se intenta crear un documento con un valor que ya existe en la base de datos por lo que no es necesario comprobarlo en peticiones de lectura
-    // if (error.code === 11000)
-    //   return {
-    //     status: 400,
-    //     data: {
-    //       message: 'User already exits'
-    //     }
-    //   }
-
-    return {
-      status: 500,
-      data: {
-        message: 'Internal server error'
-      }
-    }
+    return serverError()
   }
 }
 
@@ -77,21 +65,7 @@ export const getUsersByGenre = async genreName => {
       }
     }
   } catch (error) {
-    // El error code 11000 es el que se lanza cuando se intenta crear un documento con un valor que ya existe en la base de datos por lo que no es necesario comprobarlo en peticiones de lectura
-    // if (error.code === 11000)
-    //   return {
-    //     status: 400,
-    //     data: {
-    //       message: 'Genre already exits'
-    //     }
-    //   }
-
-    return {
-      status: 500,
-      data: {
-        message: 'Internal server error'
-      }
-    }
+    return serverError()
   }
 }
 
@@ -112,12 +86,7 @@ export const getUsersByGroup = async groupName => {
       }
     }
   } catch (error) {
-    return {
-      status: 500,
-      data: {
-        message: 'Internal server error'
-      }
-    }
+    return serverError()
   }
 }
 
@@ -137,20 +106,9 @@ export const postUser = async user => {
     }
     return res
   } catch (error) {
-    if (error.code === 11000)
-      return {
-        status: 400,
-        data: {
-          message: 'User already exits'
-        }
-      }
+    if (error.code) return duplicity(error.code)
 
-    return {
-      status: 500,
-      data: {
-        message: 'Internal server error'
-      }
-    }
+    return serverError()
   }
 }
 
@@ -165,20 +123,9 @@ export const putUser = async (userId, payload) => {
       }
     }
   } catch (error) {
-    if (error.code === 11000)
-      return {
-        status: 400,
-        data: {
-          message: 'User information already exits'
-        }
-      }
+    if (error.code) return duplicity(error.code)
 
-    return {
-      status: 500,
-      data: {
-        message: 'Internal server error'
-      }
-    }
+    return serverError()
   }
 }
 
@@ -214,20 +161,9 @@ export const putUserGenre = async (userId, genreName) => {
       }
     }
   } catch (error) {
-    if (error.code === 11000)
-      return {
-        status: 400,
-        data: {
-          message: 'User already exits'
-        }
-      }
+    if (error.code) return duplicity(error.code)
 
-    return {
-      status: 500,
-      data: {
-        message: 'Internal server error'
-      }
-    }
+    return serverError()
   }
 }
 
@@ -262,20 +198,9 @@ export const putUserGroup = async (userId, groupName) => {
       }
     }
   } catch (error) {
-    if (error.code === 11000)
-      return {
-        status: 400,
-        data: {
-          message: 'User already exits'
-        }
-      }
+    if (error.code) return duplicity(error.code)
 
-    return {
-      status: 500,
-      data: {
-        message: 'Internal server error'
-      }
-    }
+    return serverError()
   }
 }
 
@@ -291,11 +216,6 @@ export const deleteUser = async userId => {
       }
     }
   } catch (error) {
-    return {
-      status: 500,
-      data: {
-        message: 'Internal server error'
-      }
-    }
+    return serverError()
   }
 }
