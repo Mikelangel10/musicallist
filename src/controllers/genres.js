@@ -3,7 +3,7 @@ import {
   postGenres as postGenreLogic,
   deleteGenre as deleteGenreLogic
 } from '../logic/genres.js'
-import { validateGenre } from '../schemas/genres.js'
+import { validateGenre } from '../schemas/genre.js'
 
 export const getGenres = async (req, res) => {
   // Constante innecesaria porque sólo se usa una vez
