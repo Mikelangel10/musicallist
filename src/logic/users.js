@@ -3,6 +3,7 @@ import Genre from '../models/genre.js'
 import Group from '../models/group.js'
 import { duplicity } from '../utils/mongoErrors.js'
 import { serverError } from '../utils/statusErrors.js'
+import bcryptjs from 'bcryptjs'
 
 export const getUsers = async () => {
   try {
@@ -94,8 +95,17 @@ export const postUser = async user => {
   try {
     const newUser = new User({
       name: user.name,
-      email: user.email
+      email: user.email,
+      password: user.password
     })
+
+    newUser.password = await bcryptjs.hash(
+      user.password,
+      await bcryptjs.genSalt(12)
+    )
+
+    console.log(newUser)
+
     await newUser.save()
 
     const res = {
@@ -107,7 +117,7 @@ export const postUser = async user => {
     return res
   } catch (error) {
     if (error.code) return duplicity(error.code)
-
+    console.log(error)
     return serverError()
   }
 }
