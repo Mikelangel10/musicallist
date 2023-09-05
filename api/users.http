@@ -11,13 +11,14 @@ GET http://localhost:3000/api/users/genre/Rock
 GET http://localhost:3000/api/users/group/Alice%20Cooper
 
 ### Create a new user
-POST http://localhost:3000/api/users/
+POST http://localhost:3000/api/users
 content-type: application/json
 
 {
   "user": {
-    "name": "Usuario",
-    "email": "usuario@gmail.com"
+    "name": "Celia",
+    "email": "celia@gmail.com",
+    "password": "123456789"
   }
 }
 
