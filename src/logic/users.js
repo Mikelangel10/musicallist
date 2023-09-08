@@ -4,6 +4,7 @@ import Group from '../models/group.js'
 import { duplicity } from '../utils/mongoErrors.js'
 import { serverError } from '../utils/statusErrors.js'
 import bcryptjs from 'bcryptjs'
+import { encrytp } from '../utils/bcrypt.js'
 
 export const getUsers = async () => {
   try {
@@ -16,15 +17,6 @@ export const getUsers = async () => {
       }
     }
   } catch (error) {
-    // El error code 11000 es el que se lanza cuando se intenta crear un documento con un valor que ya existe en la base de datos por lo que no es necesario comprobarlo en peticiones de lectura
-    // if (error.code === 11000)
-    //   return {
-    //     status: 400,
-    //     data: {
-    //       message: 'User already exits'
-    //     }
-    //   }
-
     return {
       status: 500,
       data: {
@@ -91,6 +83,20 @@ export const getUsersByGroup = async groupName => {
   }
 }
 
+export const postLoginUser = async user => {
+  try {
+    return {
+      status: 200,
+      data: {
+        user
+      }
+    }
+  } catch (error) {
+    console.log(error)
+    return serverError()
+  }
+}
+
 export const postUser = async user => {
   try {
     const newUser = new User({
@@ -99,12 +105,7 @@ export const postUser = async user => {
       password: user.password
     })
 
-    newUser.password = await bcryptjs.hash(
-      user.password,
-      await bcryptjs.genSalt(12)
-    )
-
-    console.log(newUser)
+    newUser.password = await encrytp(user.password)
 
     await newUser.save()
 
@@ -117,7 +118,6 @@ export const postUser = async user => {
     return res
   } catch (error) {
     if (error.code) return duplicity(error.code)
-    console.log(error)
     return serverError()
   }
 }
