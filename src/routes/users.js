@@ -4,6 +4,7 @@ import {
   getUser,
   getUsersByGenre,
   getUsersByGroup,
+  postLoginUser,
   postUser,
   putUser,
   putUserGenre,
@@ -17,6 +18,7 @@ router.get('/', getUsers)
 router.get('/:userId', getUser)
 router.get('/genre/:genreName', getUsersByGenre)
 router.get('/group/:groupName', getUsersByGroup)
+router.post('/login', postLoginUser)
 router.post('/', postUser)
 router.put('/:userId', putUser)
 router.put('/:userId/genre/:genreName', putUserGenre)
