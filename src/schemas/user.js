@@ -1,7 +1,8 @@
-// Importación en desuso
-// import { isValidObjectId } from 'mongoose'
 import { z } from 'zod'
-import { validateData } from '../middlewares/validations.js'
+import {
+  validateData,
+  validatePartialData
+} from '../middlewares/validations.js'
 
 export const userSchema = z.object({
   name: z
