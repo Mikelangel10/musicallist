@@ -85,6 +85,13 @@ export const getUsersByGroup = async groupName => {
 export const postLoginUser = async user => {
   try {
     const user = await User.findOne({ email: req.body.user.email })
+    if (!user) return res.status(404).send({ message: 'User not found' })
+
+    if (!user.password)
+      return res.status(404).send({ message: 'Password not found in DB' })
+
+    if (!(await validate(password, user.password)))
+      return res.status(400).send({ message: 'Password not match' })
 
     return {
       status: 200,
