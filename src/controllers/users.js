@@ -38,19 +38,6 @@ export const postLoginUser = async (req, res) => {
   const result = validatePartialUser({ email, password })
   if (!result.success)
     return res.status(400).json({ error: JSON.parse(result.error.message) })
-
-  if (!user) return res.status(404).send({ message: 'User not found' })
-
-  if (!user.password)
-    return res.status(404).send({ message: 'Password not found in DB' })
-
-  if (!(await validate(password, user.password)))
-    return res.status(400).send({ message: 'Password not match' })
-
-  if (user) {
-    const { status, data } = await postLoginUserLogic(req.body.user)
-    return res.status(status).send(data)
-  }
 }
 
 export const postUser = async (req, res) => {
