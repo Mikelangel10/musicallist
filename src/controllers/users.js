@@ -11,7 +11,6 @@ import {
   deleteUser as deleteUserLogic
 } from '../logic/users.js'
 import { validatePartialUser, validateUser } from '../schemas/user.js'
-import User from '../models/user.js'
 import { validate } from '../utils/bcrypt.js'
 
 export const getUsers = async (req, res) => {
@@ -39,8 +38,6 @@ export const postLoginUser = async (req, res) => {
   const result = validatePartialUser({ email, password })
   if (!result.success)
     return res.status(400).json({ error: JSON.parse(result.error.message) })
-
-  const user = await User.findOne({ email: req.body.user.email })
 
   if (!user) return res.status(404).send({ message: 'User not found' })
 
