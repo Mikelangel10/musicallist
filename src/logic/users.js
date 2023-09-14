@@ -3,7 +3,6 @@ import Genre from '../models/genre.js'
 import Group from '../models/group.js'
 import { duplicity } from '../utils/mongoErrors.js'
 import { serverError } from '../utils/statusErrors.js'
-import bcryptjs from 'bcryptjs'
 import { encrytp } from '../utils/bcrypt.js'
 
 export const getUsers = async () => {
@@ -85,6 +84,8 @@ export const getUsersByGroup = async groupName => {
 
 export const postLoginUser = async user => {
   try {
+    const user = await User.findOne({ email: req.body.user.email })
+
     return {
       status: 200,
       data: {
