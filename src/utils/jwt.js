@@ -1,7 +1,7 @@
 const generarJWT = userId => {
   return new Promise((resolve, reject) => {
     const payload = {
-      uid
+      userId
     }
 
     jwt.sign(
