@@ -1,4 +1,4 @@
-const generarJWT = userId => {
+const generateJWT = userId => {
   return new Promise((resolve, reject) => {
     const payload = {
       userId
