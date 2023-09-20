@@ -1,4 +1,6 @@
-const generateJWT = userId => {
+import jwt from 'jsonwebtoken'
+
+export const generateJWT = userId => {
   return new Promise((resolve, reject) => {
     const payload = {
       userId
