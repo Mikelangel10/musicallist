@@ -1,0 +1,8 @@
+###Get Token
+GET http://localhost:3000/api/auth/token
+content-type: application/json
+
+{
+  "userId": "64d50bf71020c2401ec7d34c"
+  
+}
