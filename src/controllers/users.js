@@ -10,6 +10,7 @@ import {
   putUserGroup as putUserGroupLogic,
   deleteUser as deleteUserLogic
 } from '../logic/users.js'
+import user from '../models/user.js'
 import { validatePartialUser, validateUser } from '../schemas/user.js'
 import { validate } from '../utils/bcrypt.js'
 
@@ -38,6 +39,9 @@ export const postLoginUser = async (req, res) => {
   const result = validatePartialUser({ email, password })
   if (!result.success)
     return res.status(400).json({ error: JSON.parse(result.error.message) })
+
+  const { status, data } = await postLoginUserLogic(email, password)
+  res.status(status).send(data)
 }
 
 export const postUser = async (req, res) => {
