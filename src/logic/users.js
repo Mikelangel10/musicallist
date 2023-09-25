@@ -3,7 +3,8 @@ import Genre from '../models/genre.js'
 import Group from '../models/group.js'
 import { duplicity } from '../utils/mongoErrors.js'
 import { serverError } from '../utils/statusErrors.js'
-import { encrytp } from '../utils/bcrypt.js'
+import { encrytp, validate } from '../utils/bcrypt.js'
+import { generateJWT } from '../utils/jwt.js'
 
 export const getUsers = async () => {
   try {
@@ -82,9 +83,9 @@ export const getUsersByGroup = async groupName => {
   }
 }
 
-export const postLoginUser = async user => {
+export const postLoginUser = async (email, password) => {
   try {
-    const user = await User.findOne({ email: req.body.user.email })
+    const user = await User.findOne({ email })
     if (!user) return res.status(404).send({ message: 'User not found' })
 
     if (!user.password)
@@ -93,10 +94,15 @@ export const postLoginUser = async user => {
     if (!(await validate(password, user.password)))
       return res.status(400).send({ message: 'Password not match' })
 
+    const token = await generateJWT(user._id)
+    if (token === 'Token not generated')
+      return res.status(400).send({ message: 'Error generating token' })
+
     return {
       status: 200,
       data: {
-        user
+        user,
+        token
       }
     }
   } catch (error) {
