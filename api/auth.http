@@ -6,3 +6,14 @@ content-type: application/json
   "userId": "64d50bf71020c2401ec7d34c"
   
 }
+
+### Post login
+POST http://localhost:3000/api/auth/login
+content-type: application/json
+
+{
+  "user": {
+    "email": "celia@gmail.com",
+    "password": "123456789"
+  }
+}
