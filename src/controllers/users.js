@@ -3,7 +3,6 @@ import {
   getUser as getUserByLogic,
   getUsersByGenre as getUsersByGenreLogic,
   getUsersByGroup as getUserByGroupLogic,
-  postLoginUser as postLoginUserLogic,
   postUser as postUserLogic,
   putUser as putUserLogic,
   putUserGenre as putUserGenreLogic,
@@ -31,16 +30,6 @@ export const getUsersByGenre = async (req, res) => {
 
 export const getUsersByGroup = async (req, res) => {
   const { status, data } = await getUserByGroupLogic(req.params.groupName)
-  res.status(status).send(data)
-}
-
-export const postLoginUser = async (req, res) => {
-  const { email, password } = req.body.user
-  const result = validatePartialUser({ email, password })
-  if (!result.success)
-    return res.status(400).json({ error: JSON.parse(result.error.message) })
-
-  const { status, data } = await postLoginUserLogic(email, password)
   res.status(status).send(data)
 }
 
