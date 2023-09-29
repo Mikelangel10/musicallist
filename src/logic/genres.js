@@ -67,3 +67,49 @@ export const deleteGenre = async genreId => {
     return serverError()
   }
 }
+
+export const addGenreByIdToUserById = async (userId, genreId) => {
+  try {
+    const genre = await Genre.findById(genreId)
+    if (!genre)
+      return {
+        status: 404,
+        data: {
+          message: 'Genre not found'
+        }
+      }
+
+    const user = await User.findByIdAndUpdate(
+      { _id: userId, genres: { $ne: genreId } },
+      { $addToSet: { genres: genre } }
+    )
+    if (user) {
+      if (user.genres.includes(genreId)) {
+        return {
+          status: 400,
+          data: {
+            message: 'Genre alredy exists in user'
+          }
+        }
+      } else {
+        return {
+          status: 200,
+          data: {
+            message: 'Genre added to user'
+          }
+        }
+      }
+    } else {
+      return {
+        status: 404,
+        data: {
+          message: 'User not found'
+        }
+      }
+    }
+  } catch (error) {
+    console.log(error)
+
+    return serverError()
+  }
+}
