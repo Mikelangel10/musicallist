@@ -1,7 +1,8 @@
 import {
   getGroups as getGroupsLogic,
   postGroup as postGroupLogic,
-  deleteGroup as deleteGroupLogic
+  deleteGroup as deleteGroupLogic,
+  addGroupByIdToUserById as addGroupByIdToUserByIdLogic
 } from '../logic/groups.js'
 
 export const getGroups = async (req, res) => {
@@ -21,5 +22,13 @@ export const postGroup = async (req, res) => {
 
 export const deleteGroup = async (req, res) => {
   const { status, data } = await deleteGroupLogic(req.params.groupId)
+  res.status(status).send(data)
+}
+
+export const addGroupByIdToUserById = async (req, res) => {
+  const { status, data } = await addGroupByIdToUserByIdLogic(
+    req.body.userId,
+    req.params.groupId
+  )
   res.status(status).send(data)
 }
