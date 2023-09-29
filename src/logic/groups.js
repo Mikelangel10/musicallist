@@ -79,3 +79,49 @@ export const deleteGroup = async groupId => {
     return serverError()
   }
 }
+
+export const addGroupByIdToUserById = async (userId, groupId) => {
+  try {
+    const group = await Group.findById(groupId)
+    if (!group)
+      return {
+        status: 404,
+        data: {
+          message: 'Group not found'
+        }
+      }
+
+    const user = await User.findByIdAndUpdate(
+      { _id: userId, groups: { $ne: groupId } },
+      { $addToSet: { groups: group } }
+    )
+    if (user) {
+      if (user.groups.includes(groupId)) {
+        return {
+          status: 400,
+          data: {
+            message: 'Group alredy exists in user'
+          }
+        }
+      } else {
+        return {
+          status: 200,
+          data: {
+            message: 'Group added to user'
+          }
+        }
+      }
+    } else {
+      return {
+        status: 404,
+        data: {
+          message: 'User not found'
+        }
+      }
+    }
+  } catch (error) {
+    console.log(error)
+
+    return serverError()
+  }
+}
