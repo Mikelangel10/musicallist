@@ -24,3 +24,11 @@ content-type: application/json
 {
   "userId": "64f74ee285dca59760b703b6"
 }
+
+### Delete a genre to user
+DELETE http://localhost:3000/api/genres/64d21acc4448594e0d95b236
+content-type: application/json
+
+{
+  "userId": "64f74ee285dca59760b703b6"
+}
