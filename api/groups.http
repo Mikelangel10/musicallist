@@ -28,4 +28,12 @@ content-type: application/json
   "userId": "64f74ee285dca59760b703b6"
 }
 
+### Delete a group to user
+DELETE http://localhost:3000/api/groups/64da4891274cf2fa7efcebf8
+content-type: application/json
+
+{
+  "userId": "64f74ee285dca59760b703b6"
+}
+
 
