@@ -2,7 +2,8 @@ import {
   getGenres as getGenresLogic,
   postGenres as postGenreLogic,
   deleteGenre as deleteGenreLogic,
-  addGenreByIdToUserById as addGenreByIdToUserByIdLogic
+  addGenreByIdToUserById as addGenreByIdToUserByIdLogic,
+  deleteGenreByIdToUserById as deleteGenreByIdToUserByIdLogic
 } from '../logic/genres.js'
 import { validateGenre } from '../schemas/genre.js'
 
@@ -30,6 +31,14 @@ export const addGenreByIdToUserById = async (req, res) => {
   const { status, data } = await addGenreByIdToUserByIdLogic(
     req.body.userId,
     req.params.genreId
+  )
+  res.status(status).send(data)
+}
+
+export const deleteGenreByIdToUserById = async (req, res) => {
+  const { status, data } = await deleteGenreByIdToUserByIdLogic(
+    req.body.userId,
+    req.params.groupId
   )
   res.status(status).send(data)
 }
