@@ -125,3 +125,19 @@ export const addGroupByIdToUserById = async (userId, groupId) => {
     return serverError()
   }
 }
+
+export const deleteGroupByIdToUserById = async (userId, groupId) => {
+  try {
+    await Group.findByIdAndRemove(groupId)
+    await User.updateMany({ groups: groupId }, { $pull: { groups: groupId } })
+    await User.updateMany({ users: userId }, { $pull: { users: userId } })
+    return {
+      status: 200,
+      data: {
+        message: 'Group deleted successfully'
+      }
+    }
+  } catch (error) {
+    return serverError()
+  }
+}
