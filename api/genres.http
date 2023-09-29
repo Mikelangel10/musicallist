@@ -16,3 +16,11 @@ content-type: application/json
 
 ### Delete a Genre
 DELETE http://localhost:3000/api/genres/64dc8ab23ced77e3086743a8
+
+### Add a genre to user
+PUT http://localhost:3000/api/genres/64d21acc4448594e0d95b236
+content-type: application/json
+
+{
+  "userId": "64f74ee285dca59760b703b6"
+}
