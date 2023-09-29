@@ -113,3 +113,19 @@ export const addGenreByIdToUserById = async (userId, genreId) => {
     return serverError()
   }
 }
+
+export const deleteGenreByIdToUserById = async (userId, genreId) => {
+  try {
+    await Genre.findByIdAndRemove(genreId)
+    await User.updateMany({ genress: genreId }, { $pull: { genres: genreId } })
+    await User.updateMany({ users: userId }, { $pull: { users: userId } })
+    return {
+      status: 200,
+      data: {
+        message: 'Genre deleted successfully'
+      }
+    }
+  } catch (error) {
+    return serverError()
+  }
+}
