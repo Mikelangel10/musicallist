@@ -83,27 +83,26 @@ export const addGenreByIdToUserById = async (userId, genreId) => {
       { _id: userId, genres: { $ne: genreId } },
       { $addToSet: { genres: genre } }
     )
-    if (user) {
-      if (user.genres.includes(genreId)) {
-        return {
-          status: 400,
-          data: {
-            message: 'Genre alredy exists in user'
-          }
-        }
-      } else {
-        return {
-          status: 200,
-          data: {
-            message: 'Genre added to user'
-          }
-        }
-      }
-    } else {
+    if (!user) {
       return {
         status: 404,
         data: {
           message: 'User not found'
+        }
+      }
+    }
+    if (user.genres.includes(genreId)) {
+      return {
+        status: 400,
+        data: {
+          message: 'Genre alredy exists in user'
+        }
+      }
+    } else {
+      return {
+        status: 200,
+        data: {
+          message: 'Genre added to user'
         }
       }
     }
@@ -116,13 +115,31 @@ export const addGenreByIdToUserById = async (userId, genreId) => {
 
 export const deleteGenreByIdToUserById = async (userId, genreId) => {
   try {
-    await Genre.findByIdAndRemove(genreId)
-    await User.updateMany({ genress: genreId }, { $pull: { genres: genreId } })
-    await User.updateMany({ users: userId }, { $pull: { users: userId } })
-    return {
-      status: 200,
-      data: {
-        message: 'Genre deleted successfully'
+    const genre = await Genre.findById(genreId)
+    if (!genre)
+      return {
+        status: 404,
+        data: {
+          message: 'Genre not found'
+        }
+      }
+    const user = await User.findByIdAndUpdate(
+      { _id: userId },
+      { $pull: { genre: genreId } }
+    )
+    if (!user) {
+      return {
+        status: 404,
+        data: {
+          message: 'User not found'
+        }
+      }
+    } else {
+      return {
+        status: 200,
+        data: {
+          message: 'Genre deleted successfully'
+        }
       }
     }
   } catch (error) {
