@@ -95,27 +95,26 @@ export const addGroupByIdToUserById = async (userId, groupId) => {
       { _id: userId, groups: { $ne: groupId } },
       { $addToSet: { groups: group } }
     )
-    if (user) {
-      if (user.groups.includes(groupId)) {
-        return {
-          status: 400,
-          data: {
-            message: 'Group alredy exists in user'
-          }
-        }
-      } else {
-        return {
-          status: 200,
-          data: {
-            message: 'Group added to user'
-          }
-        }
-      }
-    } else {
+    if (!user) {
       return {
         status: 404,
         data: {
           message: 'User not found'
+        }
+      }
+    }
+    if (user.groups.includes(groupId)) {
+      return {
+        status: 400,
+        data: {
+          message: 'Group alredy exists in user'
+        }
+      }
+    } else {
+      return {
+        status: 200,
+        data: {
+          message: 'Group added to user'
         }
       }
     }
@@ -128,13 +127,33 @@ export const addGroupByIdToUserById = async (userId, groupId) => {
 
 export const deleteGroupByIdToUserById = async (userId, groupId) => {
   try {
-    await Group.findByIdAndRemove(groupId)
-    await User.updateMany({ groups: groupId }, { $pull: { groups: groupId } })
-    await User.updateMany({ users: userId }, { $pull: { users: userId } })
-    return {
-      status: 200,
-      data: {
-        message: 'Group deleted successfully'
+    const group = await Group.findById(groupId)
+    if (!group)
+      return {
+        status: 404,
+        data: {
+          message: 'Group not found'
+        }
+      }
+
+    const user = await User.findByIdAndUpdate(
+      { _id: userId },
+      { $pull: { groups: groupId } }
+    )
+
+    if (!user) {
+      return {
+        status: 404,
+        data: {
+          message: 'User not found'
+        }
+      }
+    } else {
+      return {
+        status: 200,
+        data: {
+          message: 'Group deleted successfully'
+        }
       }
     }
   } catch (error) {
