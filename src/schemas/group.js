@@ -1,6 +1,8 @@
-import { isValidObjectId } from 'mongoose'
 import { z } from 'zod'
-import { validateData } from '../middlewares/validations.js'
+import {
+  validateData,
+  validatePartialData
+} from '../middlewares/validations.js'
 
 export const groupSchema = z.object({
   name: z
@@ -10,7 +12,7 @@ export const groupSchema = z.object({
     .min(1, 'Name must be at least 1 characters long')
     .max(50, 'Name must be at most 50 characters long'),
   fundationDate: z.number().int().min(-578).max(new Date().getFullYear()),
-  genres: z.array(z.instanceof(isValidObjectId)),
+  genres: z.array(z.string()),
   members: z.array(
     z
       .string({
