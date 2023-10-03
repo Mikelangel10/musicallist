@@ -11,8 +11,8 @@ const router = Router()
 
 router.get('/', getGroups)
 router.post('/', postGroup)
-router.delete('/:groupId', deleteGroup)
 router.put('/:groupId', addGroupByIdToUserById)
-router.delete('/:groupId', deleteGroupByIdToUserById)
+router.delete('/:groupId', deleteGroup)
+router.delete('/:userId/:groupId', deleteGroupByIdToUserById)
 
 export default router
