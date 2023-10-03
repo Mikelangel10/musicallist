@@ -8,17 +8,9 @@ export const getGenres = async genre => {
   try {
     let genres
 
-    if (!genre) {
-      genres = []
-
-      const res = await Genre.find()
-
-      res.map(genre => {
-        genres.push(genre.name)
-      })
-    }
-
-    if (genre) genres = await Genre.findOne({ name: genre }, '_id name')
+    genre
+      ? (genres = await Genre.findOne({ name: genre }))
+      : (genres = await Genre.find())
 
     return {
       status: 200,
@@ -71,13 +63,14 @@ export const deleteGenre = async genreId => {
 export const addGenreByIdToUserById = async (userId, genreId) => {
   try {
     const genre = await Genre.findById(genreId)
-    if (!genre)
+    if (!genre) {
       return {
         status: 404,
         data: {
           message: 'Genre not found'
         }
       }
+    }
 
     const user = await User.findByIdAndUpdate(
       { _id: userId, genres: { $ne: genreId } },
@@ -116,13 +109,14 @@ export const addGenreByIdToUserById = async (userId, genreId) => {
 export const deleteGenreByIdToUserById = async (userId, genreId) => {
   try {
     const genre = await Genre.findById(genreId)
-    if (!genre)
+    if (!genre) {
       return {
         status: 404,
         data: {
           message: 'Genre not found'
         }
       }
+    }
     const user = await User.findByIdAndUpdate(
       { _id: userId },
       { $pull: { genre: genreId } }
