@@ -10,7 +10,7 @@ content-type: application/json
 
 {
   "group": {
-    "name": "Hombres G",
+    "name": "G",
     "fundationDate": 1982,
     "members": ["David Summers", "Rafa Gutierrez", "Javier Molina", "Daniel Mezquita"],
     "genres": ["Rock"]
@@ -21,7 +21,7 @@ content-type: application/json
 DELETE http://localhost:3000/api/groups/64dc7ae9bd2704ac7e548a6e
 
 ### Add a group to user
-PUT http://localhost:3000/api/groups/64da4891274cf2fa7efcebf8
+PUT http://localhost:3000/api/groups/651c3d09e1c667baac8db8cb
 content-type: application/json
 
 {
@@ -29,11 +29,6 @@ content-type: application/json
 }
 
 ### Delete a group to user
-DELETE http://localhost:3000/api/groups/64da4891274cf2fa7efcebf8
-content-type: application/json
-
-{
-  "userId": "64f74ee285dca59760b703b6"
-}
+DELETE http://localhost:3000/api/groups/64f74ee285dca59760b703b6/651c3d09e1c667baac8db8cb
 
 
