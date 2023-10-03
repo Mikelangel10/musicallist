@@ -14,7 +14,7 @@ export const getGroups = async group => {
       const res = await Group.find()
 
       res.map(group => {
-        groups.push(group.name)
+        return groups.push(group.name)
       })
     }
 
@@ -32,7 +32,7 @@ export const getGroups = async group => {
 }
 export const postGroup = async group => {
   try {
-    let genres = []
+    const genres = []
 
     for (const tempGenre of group.genres) {
       const _genre = await Genre.findOne({ name: tempGenre })
@@ -83,13 +83,14 @@ export const deleteGroup = async groupId => {
 export const addGroupByIdToUserById = async (userId, groupId) => {
   try {
     const group = await Group.findById(groupId)
-    if (!group)
+    if (!group) {
       return {
         status: 404,
         data: {
           message: 'Group not found'
         }
       }
+    }
 
     const user = await User.findByIdAndUpdate(
       { _id: userId, groups: { $ne: groupId } },
@@ -127,14 +128,14 @@ export const addGroupByIdToUserById = async (userId, groupId) => {
 
 export const deleteGroupByIdToUserById = async (userId, groupId) => {
   try {
-    const group = await Group.findById(groupId)
-    if (!group)
+    if (!(await Group.findById(groupId))) {
       return {
         status: 404,
         data: {
           message: 'Group not found'
         }
       }
+    }
 
     const user = await User.findByIdAndUpdate(
       { _id: userId },
@@ -149,10 +150,19 @@ export const deleteGroupByIdToUserById = async (userId, groupId) => {
         }
       }
     } else {
-      return {
-        status: 200,
-        data: {
-          message: 'Group deleted successfully'
+      if (!user.groups.includes(groupId)) {
+        return {
+          status: 404,
+          data: {
+            message: 'Group not found in user'
+          }
+        }
+      } else {
+        return {
+          status: 200,
+          data: {
+            message: 'Group deleted to user successfully'
+          }
         }
       }
     }
