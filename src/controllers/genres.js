@@ -15,8 +15,9 @@ export const getGenres = async (req, res) => {
 export const postGenre = async (req, res) => {
   const { genre } = req.body
   const result = validateGenre(genre)
-  if (!result.success)
+  if (!result.success) {
     return res.status(400).json({ error: JSON.parse(result.error.message) })
+  }
 
   const { status, data } = await postGenreLogic(genre)
   res.status(status).send(data)

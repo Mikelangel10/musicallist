@@ -9,9 +9,7 @@ import {
   putUserGroup as putUserGroupLogic,
   deleteUser as deleteUserLogic
 } from '../logic/users.js'
-import user from '../models/user.js'
 import { validatePartialUser, validateUser } from '../schemas/user.js'
-import { validate } from '../utils/bcrypt.js'
 
 export const getUsers = async (req, res) => {
   const { status, data } = await getUsersLogic()
@@ -36,8 +34,9 @@ export const getUsersByGroup = async (req, res) => {
 export const postUser = async (req, res) => {
   const { user } = req.body
   const result = validateUser(user)
-  if (!result.success)
+  if (!result.success) {
     return res.status(400).json({ error: JSON.parse(result.error.message) })
+  }
 
   const { status, data } = await postUserLogic(user)
   res.status(status).send(data)
@@ -46,8 +45,9 @@ export const postUser = async (req, res) => {
 export const putUser = async (req, res) => {
   const { payload: user } = req.body
   const result = validatePartialUser(user)
-  if (!result.success)
+  if (!result.success) {
     return res.status(400).json({ error: JSON.parse(result.error.message) })
+  }
 
   const { status, data } = await putUserLogic(req.params.userId, user)
   res.status(status).send(data)

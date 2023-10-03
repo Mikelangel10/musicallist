@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs'
 
-export const encrytp = async text => bcrypt.hash(text, await bcrypt.genSalt(12))
+export const encrytpBcrypt = async text =>
+  bcrypt.hash(text, await bcrypt.genSalt(12))
 
-export const validate = async (text, dbText) =>
+export const validateBcrypt = async (text, dbText) =>
   await bcrypt.compare(text, dbText)

@@ -15,7 +15,7 @@ export const generateJWT = userId => {
       (err, token) => {
         if (err) {
           console.log(err)
-          reject('Token not generated')
+          Promise.reject(new Error('Token not generated'))
         } else {
           resolve(token)
         }
