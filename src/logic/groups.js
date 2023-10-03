@@ -8,17 +8,9 @@ export const getGroups = async group => {
   try {
     let groups
 
-    if (!group) {
-      groups = []
-
-      const res = await Group.find()
-
-      res.map(group => {
-        return groups.push(group.name)
-      })
-    }
-
-    if (group) groups = await Group.findOne({ name: group }, '_id name')
+    group
+      ? (groups = await Group.findOne({ name: group }))
+      : (groups = await Group.find())
 
     return {
       status: 200,
