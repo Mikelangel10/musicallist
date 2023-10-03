@@ -1,7 +1,7 @@
 import User from '../models/user.js'
 import { generateJWT } from '../utils/jwt.js'
 import { serverError } from '../utils/statusErrors.js'
-import { validate } from '../utils/bcrypt.js'
+import { validateBcrypt } from '../utils/bcrypt.js'
 
 export const getToken = async userId => {
   try {
@@ -22,17 +22,33 @@ export const getToken = async userId => {
 export const postLoginUser = async (email, password) => {
   try {
     const user = await User.findOne({ email })
-    if (!user) return res.status(404).send({ message: 'User not found' })
+    if (!user) {
+      return {
+        status: 404,
+        data: {
+          message: 'User not found in DB'
+        }
+      }
+    }
 
-    if (!user.password)
-      return res.status(404).send({ message: 'Password not found in DB' })
-
-    if (!(await validate(password, user.password)))
-      return res.status(400).send({ message: 'Password not match' })
+    if (!(await validateBcrypt(password, user.password))) {
+      return {
+        status: 400,
+        data: {
+          message: 'Incorrect password'
+        }
+      }
+    }
 
     const token = await generateJWT(user._id)
-    if (token === 'Token not generated')
-      return res.status(400).send({ message: 'Error generating token' })
+    if (token === 'Token not generated') {
+      return {
+        status: 400,
+        data: {
+          message: 'Token not generated'
+        }
+      }
+    }
 
     return {
       status: 200,
