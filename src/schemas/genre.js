@@ -1,5 +1,8 @@
 import { z } from 'zod'
-import { validateData } from '../middlewares/validations.js'
+import {
+  validateData,
+  validatePartialData
+} from '../middlewares/validations.js'
 
 export const genreSchema = z.object({
   name: z
