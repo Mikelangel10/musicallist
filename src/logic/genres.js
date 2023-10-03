@@ -121,6 +121,7 @@ export const deleteGenreByIdToUserById = async (userId, genreId) => {
       { _id: userId },
       { $pull: { genre: genreId } }
     )
+
     if (!user) {
       return {
         status: 404,
@@ -129,10 +130,18 @@ export const deleteGenreByIdToUserById = async (userId, genreId) => {
         }
       }
     } else {
+      if (!user.genres.includes(genreId)) {
+        return {
+          status: 404,
+          data: {
+            message: 'Genre not found in user'
+          }
+        }
+      }
       return {
         status: 200,
         data: {
-          message: 'Genre deleted successfully'
+          message: 'Genre deleted to user successfully'
         }
       }
     }
